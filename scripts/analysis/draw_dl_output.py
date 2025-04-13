@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from __future__ import print_function
 import roslib
 roslib.load_manifest('nav_cloning')
@@ -21,7 +21,7 @@ def arrow():
     ax.imshow(arr, cmap='gray', extent=[-10,50,-10,50])
     vel = 0.2
     arrow_dict = dict(arrowstyle = "->", color = "black")
-    with open(path + 'result.csv', 'r') as f:
+    with open(path + 'training.csv', 'r') as f:
         for row in csv.reader(f):
             str_x, str_y, str_the, str_ang_vel = row
             x, y, the, ang_vel = float(str_x), float(str_y), float(str_the), float(str_ang_vel)
