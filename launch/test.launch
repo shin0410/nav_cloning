@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="script" default="test.py"/>
+
+
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+        args="5 nav_cloning nav_cloning.launch script:=$(arg script)"
+        name="timed_roslaunch" output="screen" />
+
+</launch>

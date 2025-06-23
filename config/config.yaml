@@ -1,0 +1,38 @@
+#----------per_pc_config------------------------------
+pc_user_name: "orne"
+ws_name: "challenge_ws"
+
+#----------collect(test)_fase-------------------------
+speed: "0.8"
+duration: "0.1"
+
+#----------common_config------------------------------
+time: "20250612_01:03:36"
+
+#----------aug_fase-----------------------------------
+input_aug_dataset_img: "img"
+input_aug_dataset_vel: "vel"
+output_aug_dataset_img: "aug_img"
+output_aug_dataset_vel: "aug_vel"
+
+
+#----------confirm_fase-------------------------------
+input_confirm_dataset_img: "img"
+input_confirm_dataset_vel: "vel"
+# input_confirm_dataset_img: "aug_img"
+# input_confirm_dataset_vel: "aug_vel"
+
+#----------learning_fase------------------------------
+load_dataset_img: "img"
+load_dataset_vel: "vel"
+# load_dataset_img: "aug_img"
+# load_dataset_vel: "aug_vel"
+bin: "5"
+epoch: "100"
+batch_size: "8"
+save_model: "model_gpu.pt"
+# save_model: "model_gpu_aug.pt"
+
+#----------test_fase----------------------------------
+load_model: "model_gpu.pt"
+# load_model: "model_gpu_aug.pt"
