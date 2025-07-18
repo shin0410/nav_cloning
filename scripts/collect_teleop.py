@@ -52,7 +52,7 @@ class nav_cloning_node:
         self.image_sub = rospy.Subscriber("/camera_center/usb_cam/image_raw", Image, self.callback)
         self.vel = Twist()
         self.vel_sub = rospy.Subscriber("/teleop_vel", Twist, self.callback_vel)
-        self.nav_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.nav_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
         self.joy_sub = rospy.Subscriber("/joy", Joy, self.joy_callback)
         self.action_num = 1
         self.dl = deep_learning(n_action=self.action_num)

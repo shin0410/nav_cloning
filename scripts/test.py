@@ -39,7 +39,7 @@ class nav_cloning_node:
         self.dl = deep_learning(n_action = self.action_num)
         self.bridge = CvBridge()
         self.image_sub = rospy.Subscriber("/camera_center/usb_cam/image_raw", Image, self.callback)
-        self.nav_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.nav_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
         self.episode = 0
         self.vel = Twist()
         self.cv_image = np.zeros((480,640,3), np.uint8)

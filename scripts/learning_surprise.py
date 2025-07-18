@@ -135,7 +135,7 @@ def main():
     model = Net(n_channel=3, n_out=1).to(device)
     # criterion = nn.MSELoss()
     criterion = nn.MSELoss(reduction='none')  # ★変更: MSELossのreductionを'none'に設定
-    optimizer = optim.Adam(model.parameters(), eps=1e-8, weight_decay=5e-4) # ★変更: epsを1e-8に設定 #1e-2から 1e-8に変更
+    optimizer = optim.Adam(model.parameters(), eps=1e-8) # ★変更: epsを1e-8に設定 #1e-2から 1e-8に変更
     scheduler = CosineAnnealingLR(optimizer, T_max=EPOCH, eta_min=1e-6)
 
 

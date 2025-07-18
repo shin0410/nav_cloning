@@ -7,7 +7,7 @@ speed: "0.8"
 duration: "0.1"
 
 #----------common_config------------------------------
-time: "20250623_16:39:12"
+time: "20250718_14:12:38"
 
 #----------aug_fase-----------------------------------
 input_aug_dataset_img: "img"
@@ -27,7 +27,7 @@ load_dataset_img: "img"
 load_dataset_vel: "vel"
 # load_dataset_img: "aug_img"
 # load_dataset_vel: "aug_vel"
-bin: "5"
+bin: "10"
 epoch: "100"
 batch_size: "64"
 save_model: "model_gpu.pt"
