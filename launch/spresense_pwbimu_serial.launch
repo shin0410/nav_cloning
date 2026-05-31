@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="port" default="/dev/ttyUSB0"/>
+    <arg name="baud" default="115200"/>
+    <arg name="frame_id" default="spresense_imu_link"/>
+    <arg name="start_logger" default="true"/>
+    <arg name="start_command" default="pwbimu_logger -s 120 -a 16 -g 500 -f 1 -o uart"/>
+    <arg name="startup_wait" default="2.0"/>
+    <arg name="start_attempts" default="3"/>
+    <arg name="resend_start_after" default="3.0"/>
+    <arg name="log_ignored_lines" default="true"/>
+    <arg name="imu_topic" default="/spresense/imu/data_raw"/>
+    <arg name="temperature_topic" default="/spresense/imu/temperature"/>
+
+    <node pkg="nav_cloning" type="spresense_pwbimu_serial_node.py" name="spresense_pwbimu_serial_node" output="screen">
+        <param name="port" value="$(arg port)"/>
+        <param name="baud" value="$(arg baud)"/>
+        <param name="frame_id" value="$(arg frame_id)"/>
+        <param name="start_logger" value="$(arg start_logger)"/>
+        <param name="start_command" value="$(arg start_command)"/>
+        <param name="startup_wait" value="$(arg startup_wait)"/>
+        <param name="start_attempts" value="$(arg start_attempts)"/>
+        <param name="resend_start_after" value="$(arg resend_start_after)"/>
+        <param name="log_ignored_lines" value="$(arg log_ignored_lines)"/>
+        <param name="imu_topic" value="$(arg imu_topic)"/>
+        <param name="temperature_topic" value="$(arg temperature_topic)"/>
+    </node>
+</launch>

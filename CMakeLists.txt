@@ -162,9 +162,11 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/collect_teleop.py
+  scripts/collect_teleop_imu.py
   scripts/collect_teleop+lux.py
   scripts/collect_teleop2.py
   scripts/collect_teleop64*48.py
+  scripts/spresense_pwbimu_serial_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

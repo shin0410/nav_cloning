@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="camera_bringup_launch_file" default="$(find nav_cloning)/launch/camera_bringup.launch"/>
+  <arg name="spresense_imu_launch_file" default="$(find nav_cloning)/launch/spresense_pwbimu_serial.launch"/>
+
+  <arg name="imu_port" default="/dev/ttyUSB0"/>
+  <arg name="imu_baud" default="115200"/>
+  <arg name="imu_frame_id" default="spresense_imu_link"/>
+  <arg name="imu_start_logger" default="true"/>
+  <arg name="imu_start_command" default="pwbimu_logger -s 120 -a 16 -g 500 -f 1 -o uart"/>
+  <arg name="imu_startup_wait" default="3.0"/>
+  <arg name="imu_start_attempts" default="5"/>
+  <arg name="imu_topic" default="/spresense/imu/data_raw"/>
+  <arg name="temperature_topic" default="/spresense/imu/temperature"/>
+
+  <include file="$(arg camera_bringup_launch_file)"/>
+
+  <include file="$(arg spresense_imu_launch_file)">
+    <arg name="port" value="$(arg imu_port)"/>
+    <arg name="baud" value="$(arg imu_baud)"/>
+    <arg name="frame_id" value="$(arg imu_frame_id)"/>
+    <arg name="start_logger" value="$(arg imu_start_logger)"/>
+    <arg name="start_command" value="$(arg imu_start_command)"/>
+    <arg name="startup_wait" value="$(arg imu_startup_wait)"/>
+    <arg name="start_attempts" value="$(arg imu_start_attempts)"/>
+    <arg name="imu_topic" value="$(arg imu_topic)"/>
+    <arg name="temperature_topic" value="$(arg temperature_topic)"/>
+  </include>
+</launch>
