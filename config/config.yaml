@@ -1,38 +1,48 @@
-#----------per_pc_config------------------------------
-pc_user_name: "orne"
-ws_name: "challenge_ws"
-
-#----------collect(test)_fase-------------------------
-speed: "0.8"
-duration: "0.1"
-
-#----------common_config------------------------------
-time: "20250718_14:12:38"
-
-#----------aug_fase-----------------------------------
-input_aug_dataset_img: "img"
-input_aug_dataset_vel: "vel"
-output_aug_dataset_img: "aug_img"
-output_aug_dataset_vel: "aug_vel"
-
-
-#----------confirm_fase-------------------------------
-input_confirm_dataset_img: "img"
-input_confirm_dataset_vel: "vel"
-# input_confirm_dataset_img: "aug_img"
-# input_confirm_dataset_vel: "aug_vel"
-
-#----------learning_fase------------------------------
-load_dataset_img: "img"
-load_dataset_vel: "vel"
-# load_dataset_img: "aug_img"
-# load_dataset_vel: "aug_vel"
-bin: "10"
-epoch: "100"
-batch_size: "64"
-save_model: "model_gpu.pt"
-# save_model: "model_gpu_aug.pt"
-
-#----------test_fase----------------------------------
-load_model: "model_gpu.pt"
-# load_model: "model_gpu_aug.pt"
+pc_user_name: shin
+ws_name: challenge_ws
+speed: '0.8'
+duration: '0.1'
+time: '20260530_17:00:51'
+multi_datasets:
+- time: '20250829_20:25:14'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_12:05:43'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_12:10:21'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_15:57:55'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_12:41:03'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_16:01:07'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_16:04:34'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_12:44:18'
+  img_dir: img
+  vel_dir: vel
+- time: '20250903_16:07:52'
+  img_dir: img
+  vel_dir: vel
+input_aug_dataset_img: train4000_img
+input_aug_dataset_vel: train4000_vel
+output_aug_dataset_img: TrivialAugmentWide_train4000_img_center14_K3_M31_OPContrast_
+output_aug_dataset_vel: TrivialAugmentWide_train4000_vel_center14_K3_M31_OPContrast_
+input_confirm_dataset_img: img
+input_confirm_dataset_vel: vel
+load_dataset_img: img
+load_dataset_vel: vel
+train_times: []
+bin: '5'
+epoch: '100'
+batch_size: '8'
+save_model: model_surprise.pt
+load_model: model_surprise_center_shift.pt
+mix_taw_ratio: 0.0

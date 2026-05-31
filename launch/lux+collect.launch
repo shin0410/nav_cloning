@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+	<!--<arg name="script" default="collect_teleop.py"/>-->
+  <arg name="script" default="collect_teleop+lux.py"/>
+  <arg name="nav_cloning_launch_file" default="$(find nav_cloning)/launch/nav_cloning.launch"/>
+  <arg name="teleop_joy_launch_file" default="$(find nav_cloning)/launch/teleop_joy.launch"/>
+
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+        args="5 $(arg nav_cloning_launch_file) script:=$(arg script)"
+        name="timed_roslaunch" output="screen">
+  </node>
+
+   <node pkg="timed_roslaunch" type="timed_roslaunch.sh" 
+        args="15 $(arg teleop_joy_launch_file) cmd_vel:=/teleop_vel" 
+        name="timed_roslaunch3" output="screen">
+  </node>
+
+</launch>

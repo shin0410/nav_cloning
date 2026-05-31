@@ -1,0 +1,16 @@
+pc_user_name: "shin"
+
+ws_name: "challenge_ws"
+
+speed: "0.8"
+#speed: "0.4"
+#speed: "0.2"
+
+#mode: "auto_normal"
+#mode: "auto_zigzag"
+mode: "teleop_normal"
+#mode: "teleop_test"
+
+#学習するスクリプトには影響しないが、テスト時と解析時には合わせる必要あり
+learning_method: "default"
+#learning_method: "surprise"

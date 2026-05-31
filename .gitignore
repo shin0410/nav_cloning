@@ -1,0 +1,30 @@
+# Python caches / virtualenv
+__pycache__/
+*.pyc
+.venv/
+
+# Local data and generated outputs
+data/
+analysis/
+augmix/
+navcloning_pipeline_runall/
+navcloning_pipeline_runall.zip
+*.zip
+*.log
+scripts/old/lux_log_*.csv
+
+# Dataset and model artifacts
+*.bag
+*.npy
+*.npz
+*.pt
+*.pth
+*.h5
+*.onnx
+
+# Temporary backups
+*.bak
+*.bak_*
+
+# Editor settings
+.vscode/

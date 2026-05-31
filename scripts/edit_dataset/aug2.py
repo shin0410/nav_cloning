@@ -104,7 +104,8 @@ def augment_gamma_color_shadow_variants(image):
 
 
 def main():
-    base_dir = f"/home/{PC_USER_NAME}/ws/{WS_NAME}/src/nav_cloning/data/{TIME}/dataset"
+    #base_dir = f"/home/{PC_USER_NAME}/ws/{WS_NAME}/src/nav_cloning/data/{TIME}/dataset"
+    base_dir = f"/home/{PC_USER_NAME}/{WS_NAME}/src/nav_cloning/data/{TIME}/dataset"
     img_dir = os.path.join(base_dir, INPUT_AUG_DATASET_IMG)
     vel_csv_path = os.path.join(base_dir, INPUT_AUG_DATASET_VEL, "data.csv")
 

@@ -34,23 +34,30 @@ angles_right = df["right"].values
 
 all_angles = np.concatenate([angles_center, angles_left, angles_right])
 
-# 統計情報の表示
+# 統計情報
 print(f"\nデータの総数: {len(all_angles)}")
 print(f"角度の最小値: {np.min(all_angles):.4f}")
 print(f"角度の最大値: {np.max(all_angles):.4f}")
 print(f"角度の平均値: {np.mean(all_angles):.4f}")
 print(f"角度の標準偏差: {np.std(all_angles):.4f}")
 
-# ヒストグラム計算
+# ヒストグラム（件数・割合）
 counts, bins = np.histogram(all_angles, bins=BIN)
-print("\n各範囲のデータ数:")
+hist_percent = counts / counts.sum() * 100
+
+print("\n各範囲のデータ数と割合（%）:")
 for i in range(len(counts)):
     if counts[i] > 0:
-        print(f"範囲 [{bins[i]:.4f}, {bins[i+1]:.4f}]: {counts[i]}個")
+        print(f"範囲 [{bins[i]:.4f}, {bins[i+1]:.4f}]: {counts[i]}個 ({hist_percent[i]:.2f}%)")
 
-# ヒストグラム描画
-plt.hist(all_angles, bins=BIN, density=True, alpha=1, color='b')
-plt.title('Histogram of Angles (CSV)')
+# プロット（割合）
+bin_centers = (bins[:-1] + bins[1:]) / 2
+width = (bins[1] - bins[0])
+
+plt.bar(bin_centers, hist_percent, width=width, color='b', alpha=0.9)
+plt.title('Histogram of Angles (% per bin)')
 plt.xlabel('Angle')
-plt.ylabel('Density')
+plt.ylabel('Percentage (%)')
+plt.grid(True)
+plt.tight_layout()
 plt.show()

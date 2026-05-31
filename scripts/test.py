@@ -15,19 +15,24 @@ import yaml
 
 def load_config(filename="config.yaml"):
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, "..", "config", filename)  # configディレクトリ内を想定
+    env_cfg = os.environ.get("NAV_CONFIG")
+    if env_cfg:
+        config_path = os.path.abspath(os.path.expanduser(env_cfg))
+    else:
+        config_path = os.path.join(script_dir, "..", "config", filename)
     with open(config_path, 'r') as file:
         return yaml.safe_load(file)
     
 config = load_config()
 
-PC_USER_NAME = config["pc_user_name"]
-WS_NAME = config["ws_name"]
-SPEED = config["speed"]
-DURATION = float(config["duration"])
-TIME = config["time"]
-EPOCH = int(config["epoch"])
-LOAD_MODEL = config["load_model"]
+PC_USER_NAME = str(config.get("pc_user_name", "shin"))
+WS_NAME = str(config.get("ws_name", "challenge_ws"))
+SPEED = str(config.get("speed", "0.8"))
+DURATION = float(config.get("duration", 0.1))
+TIME = config.get("time")
+EPOCH = int(config.get("epoch", 100))
+LOAD_MODEL = config.get("load_model")
+LOAD_MODEL_PATH_CFG = config.get("load_model_path")
 
 
 
@@ -47,7 +52,40 @@ class nav_cloning_node:
         self.dir_name = TIME
         self.epoch = EPOCH
         self.load_model = LOAD_MODEL
-        self.load_model_path = "/home/" + PC_USER_NAME + "/ws/" + WS_NAME + "/src/nav_cloning/data/" + self.dir_name + "/model/" + str(self.epoch) + "/" + self.load_model
+        self.load_model_path = self.resolve_model_path()
+
+    def resolve_model_path(self):
+        # 1) 最優先: 環境変数で絶対パス指定
+        env_model = os.environ.get("NAV_MODEL_PATH")
+        if env_model:
+            p = os.path.abspath(os.path.expanduser(env_model))
+            if os.path.isfile(p):
+                return p
+            raise FileNotFoundError(f"NAV_MODEL_PATH not found: {p}")
+
+        # 2) config に load_model_path があれば優先
+        if LOAD_MODEL_PATH_CFG:
+            p = os.path.abspath(os.path.expanduser(str(LOAD_MODEL_PATH_CFG)))
+            if os.path.isfile(p):
+                return p
+            raise FileNotFoundError(f"load_model_path not found: {p}")
+
+        # 3) 従来互換: time/epoch/load_model から組み立て
+        if self.dir_name and self.load_model:
+            p = f"/home/{PC_USER_NAME}/{WS_NAME}/src/nav_cloning/data/{self.dir_name}/model/{self.epoch}/{self.load_model}"
+            if os.path.isfile(p):
+                return p
+            raise FileNotFoundError(
+                f"model not found: {p}\n"
+                "Set NAV_MODEL_PATH or load_model_path in config to use an arbitrary model file."
+            )
+
+        raise KeyError(
+            "config keys are insufficient. Need one of:\n"
+            "  - NAV_MODEL_PATH env var\n"
+            "  - load_model_path in config\n"
+            "  - (time + epoch + load_model) in config"
+        )
 
 
     def callback(self, data):
@@ -64,6 +102,7 @@ class nav_cloning_node:
         img = resize(self.cv_image, (48, 64), mode='constant')
 
         if self.episode == 0:
+            print(f"[INFO] load model: {self.load_model_path}")
             self.dl.load(self.load_model_path)
 
         target_action = self.dl.act(img)

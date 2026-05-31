@@ -66,7 +66,7 @@ class deep_learning:
 
     def load(self, load_path):
         #<model load>
-        self.net.load_state_dict(torch.load(load_path))
+        self.net.load_state_dict(torch.load(load_path, map_location=self.device))
 
 
 if __name__ == '__main__':
